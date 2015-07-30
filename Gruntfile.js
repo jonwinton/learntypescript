@@ -8,13 +8,34 @@ module.exports = function(grunt) {
                     src: ['./src/scripts/**/*.ts'],
                     dest: './web/scripts'
                 }],
-                options: {fast: 'never'}
+                options: {
+                    fast: 'never'
+                }
+            }
+        },
+        clean: {
+            build: {
+                src: ['./web']
+            }
+        },
+        copy: {
+            main: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: './src/',
+                        src: ['**/*.html'],
+                        dest: 'web/'
+                    }
+                ]
             }
         }
     });
+    grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-ts');
 
-    grunt.loadNpmTasks("grunt-ts");
-    grunt.registerTask("default", ["ts"]);
+    grunt.registerTask('default', ['clean','copy', 'ts']);
 
 
 };
