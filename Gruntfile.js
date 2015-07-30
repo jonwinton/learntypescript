@@ -20,22 +20,31 @@ module.exports = function(grunt) {
         },
         copy: {
             main: {
-                files: [
-                    {
-                        expand: true,
-                        cwd: './src/',
-                        src: ['**/*.html'],
-                        dest: 'web/'
-                    }
-                ]
+                files: [{
+                    expand: true,
+                    cwd: './src/',
+                    src: ['**/*.html'],
+                    dest: 'web/'
+                }]
             }
+        },
+        watch: {
+            scripts: {
+                files: ['./src/**/*'],
+                tasks: ['default'],
+                options: {
+                    spawn: false,
+                },
+            },
         }
     });
+
+    grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-ts');
 
-    grunt.registerTask('default', ['clean','copy', 'ts']);
+    grunt.registerTask('default', ['clean', 'copy', 'ts']);
 
 
 };
